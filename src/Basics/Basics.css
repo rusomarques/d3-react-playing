@@ -1,0 +1,13 @@
+.basics-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.basics-wrapper .basics-svg {
+  margin: 30px auto;
+}
+
+.basics-wrapper .basics-button {
+  width: 100px;
+  margin: 4px auto;
+}
