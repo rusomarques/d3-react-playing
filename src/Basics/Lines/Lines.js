@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   select,
   line,
@@ -8,8 +8,7 @@ import {
   axisRight
 } from 'd3';
 
-const Lines = () => {
-  const [data, setData] = useState([25, 30, 45, 60, 20, 100, 130, 58, 40]);
+const Lines = ({ data }) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -53,33 +52,16 @@ const Lines = () => {
   }, [data]);
 
   return (
-    <>
-      <svg
-        className="basics-svg"
-        style={{ backgroundColor: '#eee', overflow: 'visible' }}
-        width={300}
-        height={150}
-        ref={svgRef}
-      >
-        <g className="x-axis" />
-        <g className="y-axis" />
-      </svg>
-
-      <button
-        type="button"
-        className="basics-button"
-        onClick={() => setData(data.map(item => item + 5))}
-      >
-        CLICK
-      </button>
-      <button
-        type="button"
-        className="basics-button"
-        onClick={() => setData(data.filter(item => item < 100))}
-      >
-        FILTER
-      </button>
-    </>
+    <svg
+      className="basics-svg"
+      style={{ backgroundColor: '#eee', overflow: 'visible' }}
+      width={300}
+      height={150}
+      ref={svgRef}
+    >
+      <g className="x-axis" />
+      <g className="y-axis" />
+    </svg>
   );
 };
 

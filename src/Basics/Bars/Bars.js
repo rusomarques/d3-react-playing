@@ -1,8 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { select, scaleLinear, axisBottom, axisRight, scaleBand } from 'd3';
 
-const Bars = () => {
-  const [data, setData] = useState([25, 30, 45, 120, 60, 20, 100]);
+const Bars = ({ data }) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -65,40 +64,16 @@ const Bars = () => {
   }, [data]);
 
   return (
-    <>
-      <svg
-        className="basics-svg"
-        style={{ backgroundColor: '#eee', overflow: 'visible' }}
-        width={300}
-        height={150}
-        ref={svgRef}
-      >
-        <g className="x-axis" />
-        <g className="y-axis" />
-      </svg>
-
-      <button
-        type="button"
-        className="basics-button"
-        onClick={() => setData(data.map(item => item + 5))}
-      >
-        UPDATE
-      </button>
-      <button
-        type="button"
-        className="basics-button"
-        onClick={() => setData(data.filter(item => item < 50))}
-      >
-        FILTER
-      </button>
-      <button
-        type="button"
-        className="basics-button"
-        onClick={() => setData([...data, Math.floor(Math.random() * 135 + 1)])}
-      >
-        ADD
-      </button>
-    </>
+    <svg
+      className="basics-svg"
+      style={{ backgroundColor: '#eee', overflow: 'visible' }}
+      width={300}
+      height={150}
+      ref={svgRef}
+    >
+      <g className="x-axis" />
+      <g className="y-axis" />
+    </svg>
   );
 };
 

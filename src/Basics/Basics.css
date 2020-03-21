@@ -5,9 +5,18 @@
 
 .basics-wrapper .basics-svg {
   margin: 30px auto;
+  background-color: '#eee';
+  overflow: 'visible';
+}
+
+.basics-wrapper .basics-buttons {
+  margin-top: 1rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .basics-wrapper .basics-button {
   width: 100px;
-  margin: 4px auto;
+  margin: 0 1rem;
 }
