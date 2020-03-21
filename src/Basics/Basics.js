@@ -12,11 +12,11 @@ export const Basics = () => {
   const [data, setData] = useState(initialData);
 
   return (
-    <div className="basics-wrapper">
+    <section className="basics">
       <Buttons data={data} setData={setData} />
       <Bars data={data} />
       <Lines data={data} />
       <Circles data={data} />
-    </div>
+    </section>
   );
 };

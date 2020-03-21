@@ -21,12 +21,8 @@ export const Circles = ({ data }) => {
   }, [data]);
 
   return (
-    <svg
-      className="basics-svg"
-      style={{ backgroundColor: '#eee', overflow: 'visible' }}
-      width={300}
-      height={150}
-      ref={svgRef}
-    ></svg>
+    <div className="svg-wrapper">
+      <svg className="basics-svg" ref={svgRef}></svg>
+    </div>
   );
 };

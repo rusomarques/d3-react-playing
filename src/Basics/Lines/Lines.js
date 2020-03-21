@@ -52,13 +52,7 @@ const Lines = ({ data }) => {
   }, [data]);
 
   return (
-    <svg
-      className="basics-svg"
-      style={{ backgroundColor: '#eee', overflow: 'visible' }}
-      width={300}
-      height={150}
-      ref={svgRef}
-    >
+    <svg className="basics-svg" width={300} height={150} ref={svgRef}>
       <g className="x-axis" />
       <g className="y-axis" />
     </svg>

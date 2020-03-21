@@ -1,19 +1,25 @@
 import React, { useRef, useEffect } from 'react';
 import { select, scaleLinear, axisBottom, axisRight, scaleBand } from 'd3';
 
+import useResizeObserver from '../../hooks/useResizeObserver';
+
 const Bars = ({ data }) => {
   const svgRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const dimensions = useResizeObserver(wrapperRef);
 
   useEffect(() => {
+    if (!dimensions) return;
     const svg = select(svgRef.current);
 
     const xScale = scaleBand()
       .domain(data.map((value, index) => index))
-      .range([0, 300])
+      .range([0, dimensions.width])
       .padding(0.3);
+
     const yScale = scaleLinear()
       .domain([0, 150])
-      .range([150, 0]);
+      .range([dimensions.height, 0]);
 
     const colorScale = scaleLinear()
       .domain([50, 80, 150]) // all values below 50 are green
@@ -22,16 +28,17 @@ const Bars = ({ data }) => {
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
       .tickFormat(index => index + 1);
+
     const yAxis = axisRight(yScale);
 
     svg
       .select('.x-axis')
-      .style('transform', 'translateY(150px)')
+      .style('transform', `translateY(${dimensions.height}px)`)
       .call(xAxis); // same as xAxis(svg.select('x-axis))
 
     svg
       .select('.y-axis')
-      .style('transform', 'translateX(300px)')
+      .style('transform', `translateX(${dimensions.width}px)`)
       .call(yAxis); // same as xAxis(svg.select('x-axis))
 
     svg
@@ -42,7 +49,7 @@ const Bars = ({ data }) => {
       .attr('x', (value, index) => xScale(index))
       // .attr('y', yScale) in order to apply transition, it is needed to fix on -150
       .style('transform', 'scale(1, -1)')
-      .attr('y', -150)
+      .attr('y', -dimensions.height)
       .attr('width', xScale.bandwidth())
       .on('mouseenter', (value, index) => {
         svg
@@ -60,20 +67,16 @@ const Bars = ({ data }) => {
       .on('mouseleave', () => svg.selectAll('.tooltip').remove())
       .transition()
       .attr('fill', colorScale)
-      .attr('height', value => 150 - yScale(value));
-  }, [data]);
+      .attr('height', value => dimensions.height - yScale(value));
+  }, [data, dimensions]);
 
   return (
-    <svg
-      className="basics-svg"
-      style={{ backgroundColor: '#eee', overflow: 'visible' }}
-      width={300}
-      height={150}
-      ref={svgRef}
-    >
-      <g className="x-axis" />
-      <g className="y-axis" />
-    </svg>
+    <div className="svg-wrapper" ref={wrapperRef}>
+      <svg className="basics-svg" ref={svgRef}>
+        <g className="x-axis" />
+        <g className="y-axis" />
+      </svg>
+    </div>
   );
 };
 
