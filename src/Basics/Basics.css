@@ -1,7 +1,6 @@
 .basics {
   display: flex;
   flex-direction: column;
-  padding: 0 50px;
 }
 
 .basics .svg-wrapper {
@@ -9,10 +8,7 @@
 }
 
 .basics .basics-svg {
-  display: block;
   background-color: #eee;
-  overflow: visible;
-  width: 100%;
 }
 
 .basics .basics-buttons {

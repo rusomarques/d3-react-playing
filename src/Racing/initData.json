@@ -1,0 +1,32 @@
+[
+  {
+    "name": "foxtrot",
+    "value": 35,
+    "color": "#fcc169"
+  },
+  {
+    "name": "echo",
+    "value": 30,
+    "color": "#fa697c"
+  },
+  {
+    "name": "delta",
+    "value": 25,
+    "color": "#9656a1"
+  },
+  {
+    "name": "charlie",
+    "value": 20,
+    "color": "#c2b0c9"
+  },
+  {
+    "name": "beta",
+    "value": 15,
+    "color": "#cccccc"
+  },
+  {
+    "name": "alpha",
+    "value": 10,
+    "color": "#f4efd3"
+  }
+]
