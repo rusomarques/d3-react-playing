@@ -13,6 +13,10 @@ export const MoneyTracker = () => {
     setData([...data, newItem]);
   };
 
+  const onDeleteItem = id => {
+    setData(data.filter(item => item.id !== id));
+  };
+
   return (
     <section className="indigo">
       <header className="indigo darken-1 section">
@@ -24,7 +28,7 @@ export const MoneyTracker = () => {
 
       <ExpenseForm onAddItem={handleOnAddItem} />
 
-      <MoneyChart data={data} />
+      <MoneyChart data={data} onDeleteItem={onDeleteItem} />
     </section>
   );
 };

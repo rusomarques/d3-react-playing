@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v1 as uuidv1 } from 'uuid';
 
 export const ExpenseForm = ({ onAddItem }) => {
   const [name, setName] = useState('');
@@ -19,7 +20,8 @@ export const ExpenseForm = ({ onAddItem }) => {
     } else {
       onAddItem({
         cost,
-        name
+        name,
+        id: uuidv1()
       });
 
       clearForm();

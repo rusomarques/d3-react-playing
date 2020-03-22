@@ -3,10 +3,9 @@ import { select, arc, pie, scaleOrdinal, schemeSet3, interpolate } from 'd3';
 import { legendColor } from 'd3-svg-legend';
 
 import useResizeObserver from '../../hooks/useResizeObserver';
+import './MoneyChart.css';
 
-export const MoneyChart = ({ data }) => {
-  console.log('MoneyChart', data);
-
+export const MoneyChart = ({ data, onDeleteItem }) => {
   const svgRef = useRef(null);
   const wrapperRef = useRef(null);
   const dimensions = useResizeObserver(wrapperRef);
@@ -99,6 +98,16 @@ export const MoneyChart = ({ data }) => {
       .style('transform', `translate(${width * 0.75}px, ${height / 4}px)`)
       .call(legend);
   }, [data, dimensions]);
+
+  useEffect(() => {
+    const svg = select(svgRef.current);
+    const clickHandler = d => {
+      const { data: { id } = {} } = d || {};
+      onDeleteItem(id);
+    };
+
+    svg.selectAll('path').on('click', clickHandler);
+  }, [data, onDeleteItem]);
 
   return (
     <div className="svg-wrapper" ref={wrapperRef}>
