@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { select, arc, pie, scaleOrdinal, schemeSet3, interpolate } from 'd3';
 import { legendColor } from 'd3-svg-legend';
+import d3Tip from 'd3-tip';
 
 import useResizeObserver from '../../hooks/useResizeObserver';
 import './MoneyChart.css';
@@ -52,6 +53,15 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
       };
     };
 
+    const tip = d3Tip()
+      .attr('class', 'tip')
+      .html(d => {
+        let content = `<div class="name">${d.data.name}</div>`;
+        content += `<div class="cost">${d.data.cost}</div>`;
+        content += `<div class="delete">Click slice to delete</div>`;
+        return content;
+      });
+
     const paths = svg.selectAll('.slice').data(pieGenerator(data));
 
     // remove exit selection
@@ -88,6 +98,8 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
       .duration(750)
       .attrTween('d', arcTweenEnter);
 
+    paths.call(tip);
+
     const legend = legendColor()
       .shape('circle')
       .shapePadding(10)
@@ -97,6 +109,11 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
       .select('.legend')
       .style('transform', `translate(${width * 0.75}px, ${height / 4}px)`)
       .call(legend);
+
+    svg
+      .selectAll('path')
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
   }, [data, dimensions]);
 
   useEffect(() => {
