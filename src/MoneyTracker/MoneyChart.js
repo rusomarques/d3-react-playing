@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { select, arc, pie, scaleOrdinal, schemeSet3, interpolate } from 'd3';
+import { legendColor } from 'd3-svg-legend';
 
 import useResizeObserver from '../hooks/useResizeObserver';
 
@@ -45,11 +46,23 @@ export const MoneyChart = ({ data }) => {
       .transition()
       .duration(750)
       .attrTween('d', arcTweenEnter);
+
+    const legend = legendColor()
+      .shape('circle')
+      .shapePadding(10)
+      .scale(colorScale);
+
+    svg
+      .select('.legend')
+      .style('transform', `translate(${width * 0.75}px, ${height / 2}px)`)
+      .call(legend);
   }, [data, dimensions]);
 
   return (
     <div className="svg-wrapper" ref={wrapperRef}>
-      <svg className="basics-svg" ref={svgRef} />
+      <svg className="basics-svg" ref={svgRef}>
+        <g className="legend" />
+      </svg>
     </div>
   );
 };
