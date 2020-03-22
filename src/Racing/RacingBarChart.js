@@ -1,13 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import {
-  select,
-  min,
-  max,
-  scaleTime,
-  axisBottom,
-  scaleLinear,
-  scaleBand
-} from 'd3';
+import { select, max, scaleLinear, scaleBand } from 'd3';
 
 import useResizeObserver from '../hooks/useResizeObserver';
 
@@ -19,8 +11,6 @@ const RacingBarChart = ({ data }) => {
   useEffect(() => {
     if (!dimensions) return;
     const svg = select(svgRef.current);
-
-    // data.sort((b, a) => a.value - b.value);
 
     const yScale = scaleBand()
       .paddingInner(0.1)
@@ -65,9 +55,7 @@ const RacingBarChart = ({ data }) => {
 
   return (
     <div className="svg-wrapper" ref={wrapperRef}>
-      <svg className="basics-svg" ref={svgRef}>
-        <g className="x-axis" />
-      </svg>
+      <svg className="basics-svg" ref={svgRef} />
     </div>
   );
 };

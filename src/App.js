@@ -1,8 +1,9 @@
 import React from 'react';
 
 import './App.css';
-import { TimeLine } from './TimeLine/TimeLine';
-import { Racing } from './Racing/Racing';
+import { Tree } from './Tree/Tree';
+// import { TimeLine } from './TimeLine/TimeLine';
+// import { Racing } from './Racing/Racing';
 // import { MoneyTracker } from './MoneyTracker/MoneyTracker';
 // import { Basics } from './Basics/Basics';
 
@@ -12,7 +13,8 @@ function App() {
       {/*  <MoneyTracker /> */}
       {/* <Basics /> */}
       {/* <TimeLine /> */}
-      <Racing />
+      {/* <Racing /> */}
+      <Tree />
     </section>
   );
 }
