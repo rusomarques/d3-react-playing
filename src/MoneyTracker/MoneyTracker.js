@@ -1,31 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import './MoneyTracker.css';
 import { ExpenseForm } from './ExpenseForm';
-import { MoneyChart } from './MoneyChart';
+import { MoneyChart } from './MoneyChart/MoneyChart';
+import './MoneyTracker.css';
 
-import mockData from './mockData.json';
+import initialData from './initialData.json';
 
 export const MoneyTracker = () => {
+  const [data, setData] = useState(initialData);
+
+  const handleOnAddItem = newItem => {
+    setData([...data, newItem]);
+  };
+
   return (
     <section className="indigo">
       <header className="indigo darken-1 section">
-        <h2 className="center white-text">Ninja Wong</h2>
+        <h2 className="center white-text">Money Tracker</h2>
         <p className="flow-text grey-text center text-lighten-2">
-          Monthly money tracker for ninjas...
+          Monthly money tracker for...
         </p>
       </header>
-      <div className="container section">
-        <div className="row">
-          <div className="col s12 m6">
-            <ExpenseForm />
-          </div>
-          <div className="col s12 m6 push-m1">
-            {/* <div className="canvas"></div> */}
-            <MoneyChart data={mockData} />
-          </div>
-        </div>
-      </div>
+
+      <ExpenseForm onAddItem={handleOnAddItem} />
+
+      <MoneyChart data={data} />
     </section>
   );
 };
