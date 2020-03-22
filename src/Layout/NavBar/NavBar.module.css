@@ -1,0 +1,25 @@
+.NavBar {
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #424242;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 20px;
+  color: #fff;
+}
+
+.NavBar nav {
+  height: 100%;
+  margin-left: auto;
+}
+
+@media (max-width: 499px) {
+  .Mobile {
+    display: none;
+  }
+}
