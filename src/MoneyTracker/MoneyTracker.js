@@ -22,7 +22,7 @@ export const MoneyTracker = () => {
           </div>
           <div className="col s12 m6 push-m1">
             {/* <div className="canvas"></div> */}
-            <MoneyChart expenses={mockData} data={[1, 2, 3]} />
+            <MoneyChart data={mockData} />
           </div>
         </div>
       </div>

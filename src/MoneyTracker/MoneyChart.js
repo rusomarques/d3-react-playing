@@ -1,19 +1,55 @@
 import React, { useRef, useEffect } from 'react';
-import * as d3 from 'd3';
+import { select, arc, pie, scaleOrdinal, schemeSet3, interpolate } from 'd3';
 
-export const MoneyChart = ({ expenses, data }) => {
-  // console.log(expenses);
+import useResizeObserver from '../hooks/useResizeObserver';
 
-  /* The useRef Hook creates a variable that "holds on" to a value across rendering
-       passes. In this case it will hold our component's SVG DOM element. It's
-       initialized null and React will assign it later (see the return statement) */
-  const d3Container = useRef(null);
+export const MoneyChart = ({ data }) => {
+  const svgRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const dimensions = useResizeObserver(wrapperRef);
 
-  /* The useEffect Hook is for running side effects outside of React,
-          for instance inserting elements into the DOM using D3 */
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const svg = select(svgRef.current);
+
+    const { width, height } =
+      dimensions || wrapperRef.current.getBoundingClientRect();
+
+    const arcGenerator = arc()
+      .innerRadius(75)
+      .outerRadius(150);
+
+    const pieGenerator = pie()
+      .sort(null)
+      .value(data => data.cost);
+
+    const colorScale = scaleOrdinal(schemeSet3);
+
+    const arcTweenEnter = data => {
+      const i = interpolate(data.endAngle, data.startAngle);
+      return function(t) {
+        data.startAngle = i(t);
+        return arcGenerator(data);
+      };
+    };
+
+    svg
+      .selectAll('.slice')
+      .data(pieGenerator(data))
+      .join('path')
+      .attr('class', 'slice')
+      // .attr('d', arcGenerator) if do not require animation
+      .attr('stroke', '#424242')
+      .attr('stroke-width', 3)
+      .attr('fill', slice => colorScale(slice.data.name))
+      .style('transform', `translate(${width / 2}px, ${height}px)`)
+      .transition()
+      .duration(750)
+      .attrTween('d', arcTweenEnter);
+  }, [data, dimensions]);
 
   return (
-    <svg className="d3-component" width={400} height={200} ref={d3Container} />
+    <div className="svg-wrapper" ref={wrapperRef}>
+      <svg className="basics-svg" ref={svgRef} />
+    </div>
   );
 };

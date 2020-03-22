@@ -16,6 +16,7 @@ function App() {
       <Route path="/racing" component={Racing} />
       <Route path="/timeline" component={TimeLine} />
       <Route path="/tree" component={Tree} />
+      <Route path="/money-tracker" component={MoneyTracker} />
       <Redirect to="/basics" />
     </Switch>
   );
