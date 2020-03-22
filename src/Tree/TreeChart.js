@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { select, hierarchy, tree, linkVertical, linkHorizontal } from 'd3';
 
 import useResizeObserver from '../hooks/useResizeObserver';
+import usePrevious from '../hooks/usePrevious';
 
 export const TreeChart = ({ data }) => {
   const svgRef = useRef(null);
@@ -12,16 +13,16 @@ export const TreeChart = ({ data }) => {
   const wrapperRefHorizontal = useRef(null);
   const dimensionsHorizontal = useResizeObserver(wrapperRefHorizontal);
 
+  const previouslyRenderedData = usePrevious(data);
+
   useEffect(() => {
     /* Horizontal Tree */
-    if (!dimensionsHorizontal) return;
     const svg = select(svgRefHorizontal.current);
+    const { width, height } =
+      dimensionsHorizontal || wrapperRef.current.getBoundingClientRect();
 
     const root = hierarchy(data);
-    const treeLayout = tree().size([
-      dimensionsHorizontal.height,
-      dimensionsHorizontal.width
-    ]);
+    const treeLayout = tree().size([height, width]);
     treeLayout(root);
 
     const linkGeneratorHorizontal = linkHorizontal()
@@ -31,7 +32,7 @@ export const TreeChart = ({ data }) => {
       .y(node => node.x);
 
     /* Nodes */
-    svg
+    const enteringAndUpdatingNodes = svg
       .selectAll('.node')
       .data(root.descendants())
       .join('circle')
@@ -40,16 +41,36 @@ export const TreeChart = ({ data }) => {
       .attr('fill', 'black')
       .attr('cx', node => node.y)
       .attr('cy', node => node.x);
+    // .attr('opacity', 0)
+    // .transition()
+    // .duration(500)
+    // .delay(node => node.depth * 300)
+    // .attr('opacity', 1);
 
     /* Links */
-    svg
+    const enteringAndUpdatingLinks = svg
       .selectAll('.link')
       .data(root.links())
       .join('path')
       .attr('class', 'link')
       .attr('fill', 'none')
       .attr('stroke', 'black')
-      .attr('d', linkGeneratorHorizontal);
+      .attr('d', linkGeneratorHorizontal)
+      /* to animate links: */
+      .attr('stroke-dasharray', function() {
+        const length = this.getTotalLength();
+        // first lenght is visible path and second is the invisible
+        return `${length} ${length}`;
+      });
+    // .attr('opacity', 1);
+    // .attr('stroke-dashoffset', function() {
+    //   const length = this.getTotalLength();
+    //   return length;
+    // })
+    // .transition()
+    // .duration(500)
+    // .delay(linkObj => linkObj.source.depth * 500)
+    // .attr('stroke-dashoffset', 0);
 
     /* Labels */
     svg
@@ -61,7 +82,31 @@ export const TreeChart = ({ data }) => {
       .attr('text-anchor', 'middle')
       .attr('x', node => node.y)
       .attr('y', node => node.x - 10);
-  }, [data, dimensionsHorizontal]);
+    // .attr('opacity', 0)
+    // .transition()
+    // .duration(500)
+    // .delay(node => node.depth * 500)
+    // .attr('opacity', 1);
+
+    /* To not animate on change of dimensions (only on new data) */
+    if (data !== previouslyRenderedData) {
+      enteringAndUpdatingLinks
+        .attr('stroke-dashoffset', function() {
+          return this.getTotalLength();
+        })
+        .transition()
+        .duration(500)
+        .delay(link => link.source.depth * 300)
+        .attr('stroke-dashoffset', 0);
+
+      enteringAndUpdatingNodes
+        .attr('opacity', 0)
+        .transition()
+        .duration(500)
+        .delay(node => node.depth * 300)
+        .attr('opacity', 1);
+    }
+  }, [data, dimensionsHorizontal, previouslyRenderedData]);
 
   useEffect(() => {
     /* Verticla Tree */
