@@ -35,15 +35,55 @@ export const MoneyChart = ({ data }) => {
       };
     };
 
-    svg
-      .selectAll('.slice')
-      .data(pieGenerator(data))
-      .join('path')
+    function arcTweenUpdate(data) {
+      // interpolate between the two objects
+      const i = interpolate(this._current, data);
+      // update the _current prop with new updated data
+      this._current = data;
+
+      return t => arcGenerator(i(t));
+    }
+
+    const arcTweenExit = data => {
+      const i = interpolate(data.startAngle, data.endAngle);
+
+      return function(t) {
+        data.startAngle = i(t);
+        return arcGenerator(data);
+      };
+    };
+
+    const paths = svg.selectAll('.slice').data(pieGenerator(data));
+
+    // remove exit selection
+    paths
+      .exit()
+      .transition()
+      .duration(750)
+      .attrTween('d', arcTweenExit)
+      .remove();
+
+    // update current shapes in DOM
+    paths
+      .attr('d', arcGenerator)
+      .attr('stroke', '#424242')
+      .attr('stroke-width', 3)
+      .attr('fill', slice => colorScale(slice.data.name))
+      .transition()
+      .duration(750)
+      .attrTween('d', arcTweenUpdate);
+
+    paths
+      .enter()
+      .append('path')
       .attr('class', 'slice')
       // .attr('d', arcGenerator) if do not require animation
       .attr('stroke', '#424242')
       .attr('stroke-width', 3)
       .attr('fill', slice => colorScale(slice.data.name))
+      .each(function(d) {
+        this._current = d; // to use it in arcTweenUpdate
+      })
       .style('transform', `translate(${width / 2}px, ${height}px)`)
       .transition()
       .duration(750)

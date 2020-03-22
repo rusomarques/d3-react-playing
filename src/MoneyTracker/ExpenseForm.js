@@ -54,7 +54,7 @@ export const ExpenseForm = ({ onAddItem }) => {
         </button>
 
         {error && (
-          <div className="input-field center">
+          <div className="form-error">
             <p className="red-text">{error}</p>
           </div>
         )}
