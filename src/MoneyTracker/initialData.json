@@ -1,8 +1,8 @@
 [
-  { "cost": 500, "name": "food", "id": "2Gd04GT5QdGsUQmiSTvJ" },
-  { "cost": 350, "name": "rent", "id": "aZaVb6txo1QQq10njGG6" },
-  { "cost": 100, "name": "expenses", "id": "hyB3IVlgPgyiFAFXV8R5" },
-  { "cost": 230, "name": "restaurants", "id": "iwRyEaqcMdZHIlU1T0JW" },
-  { "cost": 200, "name": "manzanas", "id": "jJ9PpxpCPqkwq2gAofp4" },
-  { "cost": 150, "name": "transport", "id": "xCXZXzAeKM0mjXHyBVPQ" }
+  { "cost": 500, "name": "Food", "id": "2Gd04GT5QdGsUQmiSTvJ" },
+  { "cost": 350, "name": "Rent", "id": "aZaVb6txo1QQq10njGG6" },
+  { "cost": 100, "name": "Other expenses", "id": "hyB3IVlgPgyiFAFXV8R5" },
+  { "cost": 230, "name": "Restaurants", "id": "iwRyEaqcMdZHIlU1T0JW" },
+  { "cost": 200, "name": "Apples", "id": "jJ9PpxpCPqkwq2gAofp4" },
+  { "cost": 150, "name": "Transport", "id": "xCXZXzAeKM0mjXHyBVPQ" }
 ]

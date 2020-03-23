@@ -47,7 +47,7 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
     const arcTweenExit = data => {
       const i = interpolate(data.startAngle, data.endAngle);
 
-      return function(t) {
+      return t => {
         data.startAngle = i(t);
         return arcGenerator(data);
       };
@@ -55,12 +55,14 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
 
     const tip = d3Tip()
       .attr('class', 'tip')
-      .html(d => {
-        let content = `<div class="name">${d.data.name}</div>`;
-        content += `<div class="cost">${d.data.cost}</div>`;
-        content += `<div class="delete">Click slice to delete</div>`;
-        return content;
-      });
+      .html(
+        d =>
+          `
+              <div class="cost">${d.data.cost}</div>
+              <div class="name">${d.data.name}</div>
+              <div class="delete">Click to delete</div>
+          `
+      );
 
     const paths = svg.selectAll('.slice').data(pieGenerator(data));
 
