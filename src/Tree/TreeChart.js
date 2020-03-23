@@ -4,7 +4,7 @@ import { select, hierarchy, tree, linkVertical, linkHorizontal } from 'd3';
 import useResizeObserver from '../hooks/useResizeObserver';
 import usePrevious from '../hooks/usePrevious';
 
-export const TreeChart = ({ data }) => {
+const TreeChart = ({ data }) => {
   const svgRef = useRef(null);
   const wrapperRef = useRef(null);
   const dimensions = useResizeObserver(wrapperRef);
@@ -167,3 +167,5 @@ export const TreeChart = ({ data }) => {
     </>
   );
 };
+
+export default TreeChart;

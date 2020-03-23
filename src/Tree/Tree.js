@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { TreeChart } from './TreeChart';
+import TreeChart from './TreeChart';
+import ForceTreeChart from './ForceTreeChart';
 import initialData from './initialData.json';
 
 export const Tree = () => {
@@ -13,6 +14,9 @@ export const Tree = () => {
       <button onClick={() => setData(initialData.children[0])}>
         Update data
       </button>
+
+      <h2>🪐 D3 Force Layout</h2>
+      <ForceTreeChart data={data} />
     </React.Fragment>
   );
 };
