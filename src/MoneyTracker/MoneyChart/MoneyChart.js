@@ -53,16 +53,11 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
       };
     };
 
-    const tip = d3Tip()
-      .attr('class', 'tip')
-      .html(
-        d =>
-          `
-              <div class="cost">${d.data.cost}</div>
-              <div class="name">${d.data.name}</div>
-              <div class="delete">Click to delete</div>
-          `
-      );
+    const clickHandler = d => {
+      tip.hide();
+      const { data: { id } = {} } = d || {};
+      onDeleteItem(id);
+    };
 
     const paths = svg.selectAll('.slice').data(pieGenerator(data));
 
@@ -100,6 +95,17 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
       .duration(750)
       .attrTween('d', arcTweenEnter);
 
+    const tip = d3Tip()
+      .attr('class', 'tip')
+      .html(
+        d =>
+          `
+              <div class="cost">${d.data.cost}</div>
+              <div class="name">${d.data.name}</div>
+              <div class="delete">Click to delete</div>
+          `
+      );
+
     paths.call(tip);
 
     const legend = legendColor()
@@ -115,18 +121,9 @@ export const MoneyChart = ({ data, onDeleteItem }) => {
     svg
       .selectAll('path')
       .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
-  }, [data, dimensions]);
-
-  useEffect(() => {
-    const svg = select(svgRef.current);
-    const clickHandler = d => {
-      const { data: { id } = {} } = d || {};
-      onDeleteItem(id);
-    };
-
-    svg.selectAll('path').on('click', clickHandler);
-  }, [data, onDeleteItem]);
+      .on('mouseout', tip.hide)
+      .on('click', clickHandler);
+  }, [data, dimensions, onDeleteItem]);
 
   return (
     <div className="svg-wrapper" ref={wrapperRef}>
