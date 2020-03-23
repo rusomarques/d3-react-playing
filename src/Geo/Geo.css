@@ -1,0 +1,15 @@
+.geo {
+  height: 100%;
+}
+
+.geo .svg {
+  display: block;
+  width: 100%;
+  min-height: 500px;
+}
+
+.geo .country:hover {
+  stroke: black;
+  stroke-width: 1px;
+  cursor: pointer;
+}
