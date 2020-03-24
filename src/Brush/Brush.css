@@ -4,17 +4,22 @@
   align-items: center;
 }
 
-.brush .svg-wrapper {
-  height: 50vh;
-  width: 80vw;
-  margin: 0 auto;
+.brush h2 {
+  margin-bottom: 2rem;
 }
 
-.brush .button {
-  margin-top: 2rem;
-  width: 6rem;
+.brush .brush-svg {
+  display: block;
+  overflow: visible;
+  height: 300px;
+  width: 80vh;
 }
 
 .brush .brush-data {
   margin-top: 2rem;
+}
+
+.brush .button {
+  margin: 2rem;
+  width: 6rem;
 }

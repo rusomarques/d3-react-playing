@@ -14,7 +14,7 @@ import {
 import useResizeObserver from '../hooks/useResizeObserver';
 import usePrevious from '../hooks/usePrevious';
 
-const BrushChart = ({ data }) => {
+const BrushChart = ({ data, children }) => {
   const svgRef = useRef(null);
   const wrapperRef = useRef(null);
   const dimensions = useResizeObserver(wrapperRef);
@@ -97,12 +97,15 @@ const BrushChart = ({ data }) => {
   return (
     <>
       <div className="svg-wrapper" ref={wrapperRef}>
-        <svg className="basics-svg" ref={svgRef}>
+        <svg className="brush-svg" ref={svgRef}>
           <g className="x-axis" />
           <g className="y-axis" />
           <g className="brush" />
         </svg>
       </div>
+
+      {children({ selection })}
+
       <small className="brush-data">
         Selected values: [
         {data
