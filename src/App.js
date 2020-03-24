@@ -9,11 +9,13 @@ import { MoneyTracker } from './MoneyTracker/MoneyTracker';
 import { Basics } from './Basics/Basics';
 import Layout from './Layout/Layout';
 import Geo from './Geo/Geo';
+import Brush from './Brush/Brush';
 
 function App() {
   const routes = (
     <Switch>
       <Route path="/basics" exact component={Basics} />
+      <Route path="/brush" exact component={Brush} />
       <Route path="/geo" exact component={Geo} />
       <Route path="/racing" component={Racing} />
       <Route path="/timeline" component={TimeLine} />
