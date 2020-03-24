@@ -1,7 +1,8 @@
 /* 
   Polyfill to support other browsers
-  import ResizeObserver from 'resize-observer-polyfill';
-*/
+  */
+import ResizeObserver from 'resize-observer-polyfill';
+
 import { useState, useEffect } from 'react';
 
 const useResizeObserver = ref => {
