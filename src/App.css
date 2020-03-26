@@ -1,7 +1,6 @@
-/* .App {
-  text-align: center;
-  padding: 0 50px;
-} */
+#root {
+  box-sizing: border-box;
+}
 
 .basics-svg {
   display: block;
@@ -11,4 +10,11 @@
 
 .svg-wrapper {
   margin-bottom: 2rem;
+}
+
+svg,
+.svg {
+  display: block;
+  overflow: visible;
+  width: 100%;
 }

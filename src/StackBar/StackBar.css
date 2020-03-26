@@ -1,0 +1,17 @@
+.stack-bar .field {
+  display: inline-block;
+  margin: 0 0.5em;
+}
+
+.stack-bar .field input {
+  margin-right: 0.5em;
+}
+
+.stack-bar .field input:hover {
+  cursor: pointer;
+}
+
+.stack-bar .svg {
+  height: 300px;
+  background: #f7f7f7;
+}
