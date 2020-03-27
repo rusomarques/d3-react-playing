@@ -10,14 +10,14 @@ import { Basics } from './Basics/Basics';
 import Layout from './Layout/Layout';
 import Geo from './Geo/Geo';
 import Brush from './Brush/Brush';
-import StackBar from './StackBar/StackBar';
+import Stack from './StackBar/Stack';
 
 function App() {
   const routes = (
     <Switch>
       <Route path="/basics" exact component={Basics} />
       <Route path="/brush" exact component={Brush} />
-      <Route path="/stack-bar" exact component={StackBar} />
+      <Route path="/stack" exact component={Stack} />
       <Route path="/geo" exact component={Geo} />
       <Route path="/racing" component={Racing} />
       <Route path="/timeline" component={TimeLine} />

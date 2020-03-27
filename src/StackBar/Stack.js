@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import data from './initialData.json';
+import initialData from './initialData.json';
 import StackedBarChart from './StackedBarChart';
-import './StackBar.css';
+import StackedAreaChart from './StackedAreaChart';
+import './Stack.css';
 
 const allKeys = ['🥑', '🍌', '🍆'];
 
@@ -12,13 +13,16 @@ const colors = {
   '🍆': 'purple'
 };
 
-const StackBar = () => {
+const Stack = () => {
+  const [data, setData] = useState(initialData);
   const [keys, setKeys] = useState(allKeys);
 
   return (
     <section className="stack-bar">
       <h2>Stacked Bar Chart with D3 </h2>
       <StackedBarChart data={data} keys={keys} colors={colors} />
+
+      <StackedAreaChart data={data} keys={keys} colors={colors} />
 
       <div className="fields">
         {allKeys.map(key => (
@@ -41,8 +45,24 @@ const StackBar = () => {
           </div>
         ))}
       </div>
+
+      <button
+        onClick={() =>
+          setData([
+            ...data,
+            {
+              year: Math.max(...data.map(d => d.year)) + 10,
+              '🥑': Math.round(Math.random() * 100),
+              '🍌': Math.round(Math.random() * 125),
+              '🍆': Math.round(Math.random() * 150)
+            }
+          ])
+        }
+      >
+        Add data
+      </button>
     </section>
   );
 };
 
-export default StackBar;
+export default Stack;
