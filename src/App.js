@@ -11,12 +11,14 @@ import Layout from './Layout/Layout';
 import Geo from './Geo/Geo';
 import Brush from './Brush/Brush';
 import Stack from './StackBar/Stack';
+import Zoom from './Zoom/Zoom';
 
 function App() {
   const routes = (
     <Switch>
       <Route path="/basics" exact component={Basics} />
       <Route path="/brush" exact component={Brush} />
+      <Route path="/zoom" exact component={Zoom} />
       <Route path="/stack" exact component={Stack} />
       <Route path="/geo" exact component={Geo} />
       <Route path="/racing" component={Racing} />

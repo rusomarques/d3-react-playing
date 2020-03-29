@@ -7,6 +7,7 @@ const NavigationItems = () => (
   <ul className={classes.NavigationItems}>
     <NavigationItem link="/basics">Basics</NavigationItem>
     <NavigationItem link="/brush">Brush</NavigationItem>
+    <NavigationItem link="/zoom">Zoom</NavigationItem>
     <NavigationItem link="/stack">Stack</NavigationItem>
     <NavigationItem link="/tree">Tree</NavigationItem>
     <NavigationItem link="/timeline">Timeline</NavigationItem>
